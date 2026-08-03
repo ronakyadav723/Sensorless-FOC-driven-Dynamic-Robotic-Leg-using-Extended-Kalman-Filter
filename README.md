@@ -67,8 +67,8 @@ The estimated states drive a complete FOC cascade (Clarke/Park transforms, casca
 
 ```
 .
-├── Complete_Sensorless_FOC_EKF_simulink_model.slx   # Full FOC + EKF + Simscape power stage model
-├── complete_recovery.slx                             # Model checkpoint / recovery version
+├── Complete_SensorlessFOC_Simulink_Model.slx   # Full FOC + EKF + Simscape power stage model
+├── SensorlessFOC_before_co-simulation.slx             # Model checkpoint / recovery version
 ├── motor_params.m                                    # PMSM electrical & mechanical parameters
 ├── robotic_ROS2/                                     # ROS 2 workspace: leg URDF, controllers, bridge nodes
 └── README.md

@@ -1,0 +1,9 @@
+topics:
+  /leg/motor_feedback:
+    type: std_msgs/msg/Float64MultiArray
+    from_domain: 42
+    to_domain: 0
+  /joint_trajectory_controller/joint_trajectory:
+    type: trajectory_msgs/msg/JointTrajectory
+    from_domain: 42
+    to_domain: 0

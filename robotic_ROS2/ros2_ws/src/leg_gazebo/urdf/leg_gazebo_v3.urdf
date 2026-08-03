@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<robot name="robotic_leg">
+
+  <ros2_control name="GazeboSystem" type="system">
+    <hardware>
+      <plugin>gazebo_ros2_control/GazeboSystem</plugin>
+    </hardware>
+    <joint name="hip_joint">
+      <command_interface name="position"/>
+      <command_interface name="effort"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="knee_joint">
+      <command_interface name="position"/>
+      <command_interface name="effort"/>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+  </ros2_control>
+
+  <gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+      <parameters>/home/sharan/sensorless-foc-robotic-leg-fixed/ros2_ws/install/leg_gazebo/share/leg_gazebo/config/controllers.yaml</parameters>
+    </plugin>
+  </gazebo>
+
+  <link name="world"/>
+
+  <joint name="world_to_base" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0.5" rpy="0 0 0"/>
+  </joint>
+
+  <link name="base_link">
+    <visual>
+      <geometry><box size="0.1 0.1 0.1"/></geometry>
+    </visual>
+    <collision>
+      <geometry><box size="0.1 0.1 0.1"/></geometry>
+    </collision>
+    <inertial>
+      <mass value="1.0"/>
+      <inertia ixx="0.01" ixy="0" ixz="0" iyy="0.01" iyz="0" izz="0.01"/>
+    </inertial>
+  </link>
+
+  <link name="upper_leg">
+    <visual>
+      <geometry><cylinder radius="0.02" length="0.25"/></geometry>
+      <origin xyz="0 0 -0.125" rpy="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.02" length="0.25"/></geometry>
+      <origin xyz="0 0 -0.125" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.5"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+
+  <link name="lower_leg">
+    <visual>
+      <geometry><cylinder radius="0.02" length="0.25"/></geometry>
+      <origin xyz="0 0 -0.125" rpy="0 0 0"/>
+    </visual>
+    <collision>
+      <geometry><cylinder radius="0.02" length="0.25"/></geometry>
+      <origin xyz="0 0 -0.125" rpy="0 0 0"/>
+    </collision>
+    <inertial>
+      <mass value="0.5"/>
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+    </inertial>
+  </link>
+
+  <joint name="hip_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="upper_leg"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="80" velocity="2.0"/>
+    <dynamics damping="0.1" friction="0.1"/>
+  </joint>
+
+  <joint name="knee_joint" type="revolute">
+    <parent link="upper_leg"/>
+    <child link="lower_leg"/>
+    <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-1.57" upper="1.57" effort="20" velocity="2.0"/>
+    <dynamics damping="0.1" friction="0.1"/>
+  </joint>
+
+  <joint name="foot_joint" type="fixed">
+    <parent link="lower_leg"/>
+    <child link="foot"/>
+    <origin xyz="-0.055 0 -0.25" rpy="0 0 0"/>
+  </joint>
+
+  <link name="foot">
+    <visual>
+      <geometry><box size="0.15 0.08 0.02"/></geometry>
+    </visual>
+    <collision>
+      <geometry><box size="0.15 0.08 0.02"/></geometry>
+    </collision>
+    <inertial>
+      <mass value="0.0001"/>
+      <inertia ixx="1e-8" ixy="0.0" ixz="0.0" iyy="1e-8" iyz="0.0" izz="1e-8"/>
+    </inertial>
+  </link>
+
+</robot>

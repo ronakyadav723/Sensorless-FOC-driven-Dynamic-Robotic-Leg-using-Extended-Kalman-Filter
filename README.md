@@ -168,10 +168,6 @@ This project is evaluated (per the original problem statement) against:
 
 ---
 
-## Roadmap / Bonus Objectives
-
-- [ ] High-Frequency Injection (HFI) for zero-speed rotor angle observability
-- [ ] Replace PI current loops with Model Predictive Control (MPC) for improved transient torque response during mechanical shocks
 
 ---
 
